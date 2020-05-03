@@ -1,0 +1,8 @@
+
+boot:
+  auth:
+    enable: true
+    token-expire: 30000
+    refresh-expire: 300000
+    token-header: Auth
+    secret: user-service
