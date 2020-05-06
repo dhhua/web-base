@@ -1,2 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.web.base.boot.auth.TokenAuthAutoConfiguration
+  com.web.base.boot.auth.TokenAuthAutoConfiguration,\
+  com.web.base.boot.cors.CorsAutoConfiguration,\
+  com.web.base.boot.security.SecurityAutoConfiguration

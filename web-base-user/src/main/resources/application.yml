@@ -6,3 +6,12 @@ boot:
     refresh-expire: 300000
     token-header: Auth
     secret: user-service
+    token-start-with: Bearer
+  security:
+    enable: false
+  cors:
+    enable: true
+
+logging:
+  level:
+    root: info

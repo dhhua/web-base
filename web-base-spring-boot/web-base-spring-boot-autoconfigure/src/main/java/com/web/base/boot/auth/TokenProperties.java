@@ -17,6 +17,8 @@ public class TokenProperties {
 
     private String tokenHeader;
 
+    private String tokenStartWith;
+
     private String secret;
 
 }

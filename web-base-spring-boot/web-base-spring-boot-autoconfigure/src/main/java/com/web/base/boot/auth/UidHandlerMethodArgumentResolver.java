@@ -41,7 +41,8 @@ public class UidHandlerMethodArgumentResolver implements HandlerMethodArgumentRe
             throw new RuntimeException("token config error");
         }
         String tokenHeaderName = StringUtils.isEmpty(tokenProperties.getTokenHeader()) ? DEFAULT_TOKEN_HEADER : tokenProperties.getTokenHeader();
-        String token = request.getHeader(tokenHeaderName);
+        String tokenString = request.getHeader(tokenHeaderName);
+        String token = JwtUtils.resolveToken(tokenString, tokenProperties.getTokenStartWith());
         Uid uidAnnotation = methodParameter.getParameterAnnotation(Uid.class);
         if (uidAnnotation == null) {
             throw new RuntimeException("uid annotation should not be null");
@@ -57,10 +58,6 @@ public class UidHandlerMethodArgumentResolver implements HandlerMethodArgumentRe
         JwtUtils.getClaimByToken(token, tokenProperties.getSecret());
         try {
             Claims claims = JwtUtils.getClaimByToken(token, tokenProperties.getSecret());
-            if (JwtUtils.isTokenExpired(claims.getExpiration())) {
-                log.info("token was expired, token:{}", token);
-                throw new TokenExpiredException();
-            }
             return Long.valueOf(claims.getSubject());
         } catch (Exception e) {
             log.warn("failed to get claim by token", e);
@@ -69,6 +66,5 @@ public class UidHandlerMethodArgumentResolver implements HandlerMethodArgumentRe
             }
             return 0L;
         }
-
     }
 }

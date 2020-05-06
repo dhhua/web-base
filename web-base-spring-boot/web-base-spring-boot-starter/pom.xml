@@ -13,6 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>web-base-auth-starter</module>
+        <module>web-base-auth-security-starter</module>
     </modules>
 
     <dependencies>
