@@ -3,7 +3,6 @@ package com.web.base.boot.auth;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,7 +22,6 @@ import java.util.stream.Collectors;
  */
 public class JwtUtils {
 
-    private static final String AUTHORITIES_KEY = "auth";
 
     /**
      * 不需要权限控制时创建
@@ -47,38 +45,6 @@ public class JwtUtils {
                 .compact();
     }
 
-    public String createToken(Authentication authentication, Long expiredTime, String secret) {
-        String authorities = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.joining(","));
-
-        Date nowDate = new Date();
-        // 过期时间
-        Date expireDate = new Date(nowDate.getTime() + expiredTime);
-
-        return Jwts.builder()
-                .setHeaderParam("typ", "JWT")
-                .setSubject(authentication.getPrincipal().toString())
-                .claim(AUTHORITIES_KEY, authorities)
-                .setIssuedAt(nowDate)
-                .setExpiration(expireDate)
-                .signWith(SignatureAlgorithm.HS512, secret)
-                .compact();
-    }
-
-    public static Authentication getAuthentication(String token, String secret) {
-        Claims claims = getClaimByToken(token, secret);
-        Object authoritiesStr = claims.get(AUTHORITIES_KEY);
-        Collection<? extends GrantedAuthority> authorities =
-                ObjectUtils.isNotEmpty(authoritiesStr) ?
-                        Arrays.stream(authoritiesStr.toString().split(","))
-                                .map(SimpleGrantedAuthority::new)
-                                .collect(Collectors.toList()) : Collections.emptyList();
-
-        User principal = new User(claims.getSubject(), "", authorities);
-
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
-    }
 
     public static Claims getClaimByToken(String token, String secret) {
         return Jwts.parser()

@@ -1,6 +1,5 @@
 package com.web.base.boot.security;
 
-import com.web.base.boot.auth.JwtUtils;
 import com.web.base.boot.auth.TokenProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -36,7 +35,7 @@ public class TokenFilter extends GenericFilterBean {
         // 验证 token 是否存在
         if (StringUtils.hasText(token)) {
             try {
-                Authentication authentication = JwtUtils.getAuthentication(token, tokenProperties.getSecret());
+                Authentication authentication = TokenProvider.getAuthentication(token, tokenProperties.getSecret());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
                 log.debug("set Authentication to security context for '{}', uri: {}", authentication.getName(), requestRri);
             } catch (Exception e) {

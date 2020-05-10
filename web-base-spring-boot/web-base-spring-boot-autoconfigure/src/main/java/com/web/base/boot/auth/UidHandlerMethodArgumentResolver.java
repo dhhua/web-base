@@ -3,8 +3,10 @@ package com.web.base.boot.auth;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.support.WebDataBinderFactory;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
@@ -50,7 +52,7 @@ public class UidHandlerMethodArgumentResolver implements HandlerMethodArgumentRe
 
         if (StringUtils.isEmpty(token)) {
             if (uidAnnotation.require()) {
-                throw new NotLoginException();
+                throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
             } else {
                 return 0L;
             }
@@ -62,7 +64,7 @@ public class UidHandlerMethodArgumentResolver implements HandlerMethodArgumentRe
         } catch (Exception e) {
             log.warn("failed to get claim by token", e);
             if (uidAnnotation.require()) {
-                throw new NotLoginException();
+                throw new HttpClientErrorException(HttpStatus.UNAUTHORIZED);
             }
             return 0L;
         }

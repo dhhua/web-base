@@ -14,6 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <swagger.version>2.9.2</swagger.version>
+        <main.application>com.web.base.user.UserServiceApplication</main.application>
     </properties>
 
     <dependencyManagement>
@@ -30,19 +31,37 @@
     <dependencies>
         <dependency>
             <groupId>com.web.base</groupId>
+            <artifactId>web-base-auth-security-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.web.base</groupId>
             <artifactId>web-base-auth-starter</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
-            <groupId>org.springdoc</groupId>
-            <artifactId>springdoc-openapi-ui</artifactId>
-            <version>LATEST</version>
+            <groupId>com.web.base</groupId>
+            <artifactId>web-base-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.web.base</groupId>
+            <artifactId>web-base-persist</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!-- swagger2 和 swagger2 依赖 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>swagger-bootstrap-ui</artifactId>
+            <version>1.9.6</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -52,11 +71,26 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>2.3.2</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                     <showWarnings>true</showWarnings>
-                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <encoding>utf-8</encoding>
                 </configuration>
+            </plugin>
+            <plugin>
+                <configuration>
+                    <finalName>${project.artifactId}</finalName>
+                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.5.4.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

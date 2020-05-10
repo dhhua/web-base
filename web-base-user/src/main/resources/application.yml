@@ -2,15 +2,32 @@
 boot:
   auth:
     enable: true
-    token-expire: 30000
-    refresh-expire: 300000
-    token-header: Auth
+    token-expire: 1800000
+    refresh-expire: 7200000
+    token-header: Authentication
     secret: user-service
     token-start-with: Bearer
   security:
-    enable: false
+    enable: true
   cors:
     enable: true
+
+# 数据库配置
+#Mysql属性配置文件,Spring-boot系统配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://120.24.28.192:3306/bids_business?autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    username: test_user
+    password: test123456
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 
 logging:
   level:

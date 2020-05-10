@@ -76,43 +76,18 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint())
                 .accessDeniedHandler(jwtAccessDeniedHandler())
-
                 // 防止iframe 造成跨域
                 .and()
                 .headers()
                 .frameOptions()
                 .disable()
-
                 // 不创建会话
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
                 .and()
                 .authorizeRequests()
-                // 静态资源等等
-                .antMatchers(
-                        HttpMethod.GET,
-                        "/*.html",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js",
-                        "/webSocket/**"
-                ).permitAll()
-                // swagger 文档
-                .antMatchers("/swagger-ui.html").permitAll()
-                .antMatchers("/swagger-resources/**").permitAll()
-                .antMatchers("/webjars/**").permitAll()
-                .antMatchers("/*/api-docs").permitAll()
-                // 文件
-                .antMatchers("/avatar/**").permitAll()
-                .antMatchers("/file/**").permitAll()
-                // 阿里巴巴 druid
-                .antMatchers("/druid/**").permitAll()
-                // 放行OPTIONS请求
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                // 所有请求都需要认证
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
     }
 
 
