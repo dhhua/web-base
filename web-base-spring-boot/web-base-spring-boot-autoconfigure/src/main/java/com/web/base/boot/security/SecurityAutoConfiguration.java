@@ -74,7 +74,7 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(tokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 // 授权异常
                 .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint())
+//                .authenticationEntryPoint(jwtAuthenticationEntryPoint())
                 .accessDeniedHandler(jwtAccessDeniedHandler())
                 // 防止iframe 造成跨域
                 .and()

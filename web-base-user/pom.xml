@@ -30,6 +30,10 @@
     </dependencyManagement>
     <dependencies>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.web.base</groupId>
             <artifactId>web-base-auth-security-starter</artifactId>
         </dependency>

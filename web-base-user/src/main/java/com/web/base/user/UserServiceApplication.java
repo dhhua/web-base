@@ -1,5 +1,6 @@
 package com.web.base.user;
 
+import com.github.xiaoymin.swaggerbootstrapui.annotations.EnableSwaggerBootstrapUI;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -22,6 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EntityScan({"com.web.base.persist"})
 @EnableSwagger2
+@EnableSwaggerBootstrapUI
 @EnableJpaRepositories(basePackages = {"com.web.base.persist"})
 public class UserServiceApplication extends SpringBootServletInitializer {
 
