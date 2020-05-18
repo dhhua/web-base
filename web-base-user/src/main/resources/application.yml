@@ -7,8 +7,8 @@ boot:
     token-header: Authentication
     secret: user-service
     token-start-with: Bearer
-  security:
-    enable: true
+#  security:
+#    enable: true
   cors:
     enable: true
 

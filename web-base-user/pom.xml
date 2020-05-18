@@ -29,14 +29,21 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.14</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.web.base</groupId>
-            <artifactId>web-base-auth-security-starter</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.web.base</groupId>-->
+<!--            <artifactId>web-base-auth-security-starter</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.web.base</groupId>
             <artifactId>web-base-auth-starter</artifactId>

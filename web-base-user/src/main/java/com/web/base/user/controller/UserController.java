@@ -11,8 +11,8 @@ import com.web.base.persist.auth.repository.SystemUserRepository;
 import com.web.base.user.domain.TokenResponse;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.token.Sha512DigestUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,7 +45,7 @@ public class UserController {
 
         SystemUser user = new SystemUser();
         user.setAccount(account);
-        user.setPassword(Sha512DigestUtils.shaHex(password));
+        user.setPassword(DigestUtils.sha1Hex(password));
         userRepository.save(user);
         return WebResponse.success("SUCCESS");
     }
@@ -60,8 +60,8 @@ public class UserController {
     @ApiOperation(value = "登录", notes = "code = 1 账号或密码错误")
     @PostMapping(value = "login")
     public WebResponse<TokenResponse> login(String account, String password) {
-        log.info("password:{}", Sha512DigestUtils.shaHex(password));
-        SystemUser systemUser = userRepository.findOneByAccountAndPassword(account, Sha512DigestUtils.shaHex(password));
+        log.info("password:{}", DigestUtils.sha1Hex(password));
+        SystemUser systemUser = userRepository.findOneByAccountAndPassword(account, DigestUtils.sha1Hex(password));
         if (systemUser == null) {
             return WebResponse.fail(1, "账号或密码错误");
         }
